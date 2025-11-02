@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Import navigation hook
 import Header from "../Components/Header";
 import DisasterCard from "../Components/DisasterCard";
 import AddDisasterModal from "../Components/AddDisasterModal";
 
 const Home = () => {
     const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate(); // ✅ Initialize navigate
+
+    // Function to handle disaster card click
+    const handleDisasterClick = (id) => {
+        navigate(`/disaster/${id}`); // Redirect to details page
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300">
@@ -35,14 +42,15 @@ const Home = () => {
 
                 {/* Disaster List */}
                 <div className="mt-10 bg-white rounded-xl shadow-lg border border-blue-200 p-6 transition hover:shadow-xl">
-                    <div className="flex ml-6">
-                        <img src="../../../public/india.png" alt="indian-flag" className="h-8" />
+                    <div className="flex ml-6 items-center gap-3">
+                        <img src="/india.png" alt="indian-flag" className="h-8" />
                         <h3 className="text-xl font-bold text-blue-700 mb-1">
-
                             Active Disasters
                         </h3>
                     </div>
-                    <DisasterCard />
+
+                    {/* Pass click handler to DisasterCard */}
+                    <DisasterCard onClick={handleDisasterClick} />
                 </div>
             </div>
 
